@@ -1,0 +1,13 @@
+campanies:
+  - company:
+      name: A
+      summary: 〇〇をやった
+      projects:
+        - project1:
+            period: 2021年05月〜2021年06月
+            team: 5人
+            role: リーダー
+            technology: Go, TypeScript
+            activities:
+              - 実装をした
+              - テストをした
