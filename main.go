@@ -19,14 +19,14 @@ type Project struct {
 	Activities []Activity
 }
 
-type Campany struct {
+type Company struct {
 	Name     string
 	Summary  string
 	Projects []Project
 }
 
 type Career struct {
-	Campanys []Campany
+	Companies []Company
 }
 
 func main() {
