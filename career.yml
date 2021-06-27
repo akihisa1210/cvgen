@@ -3,14 +3,12 @@ companies:
     summary: 〇〇をやった
     projects:
       - period: 2021年05月〜2021年06月
-        team: 5人
         role: リーダー
         technology: Go, TypeScript
         activities:
           - 実装をした
           - テストをした
       - period: 2021年05月〜2021年06月
-        team: 5人
         role: リーダー
         technology: Go, TypeScript
         activities:
@@ -20,7 +18,6 @@ companies:
     summary: xxをやった
     projects:
       - period: 2021年04月〜2021年05月
-        team: 10人
         role: メンバー
         technology: PHP, MySQL
         activities:

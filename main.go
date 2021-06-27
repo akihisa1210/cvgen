@@ -15,7 +15,6 @@ type Activity string
 
 type Project struct {
 	Period     string
-	Team       string
 	Role       string
 	Technology string
 	Activities []Activity
@@ -59,17 +58,20 @@ func main() {
 			<tbody>
 				{{ range .Companies }}
 					<tr>
-						<td colspan="5">{{ .Name }}</td>
+						<td colspan="4">社名: {{ .Name }}</td>
 					</tr>
 					<tr>
-						<td colspan="5">{{ .Summary }}</td>
+						<td colspan="4">{{ .Summary }}</td>
 					</tr>
 					{{ range .Projects }}
 						<tr>
-							<td>{{ .Period }}</td>
-							<td>{{ .Team }}</td>
-							<td>{{ .Role }}</td>
-							<td>{{ .Technology }}</td>
+							<td rowspan="3" >{{ .Period }}</td>
+							<td>役割: {{ .Role }}</td>
+						</tr>
+						<tr>
+							<td>使用技術: {{ .Technology }}</td>
+						</tr>
+						<tr>
 							<td>
 								<ul>
 								{{ range .Activities }}
