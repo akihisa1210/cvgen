@@ -42,9 +42,9 @@ func main() {
 	}
 
 	career := Career{}
-	err = yaml.Unmarshal([]byte(data), &career)
+	err = yaml.Unmarshal(data, &career)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Valid!")
+	fmt.Printf("%#v\n", career)
 }
