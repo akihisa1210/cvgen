@@ -1,9 +1,9 @@
-package main
+package career
 
 import (
+	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"text/template"
@@ -30,20 +30,12 @@ type Career struct {
 	Companies []Company
 }
 
-func main() {
-	f, err := os.Open("./career.yml")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-
-	data, err := ioutil.ReadAll(f)
-	if err != nil {
-		log.Fatal(err)
-	}
-
+func Generate(r io.Reader) {
 	career := Career{}
-	err = yaml.Unmarshal(data, &career)
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(r)
+
+	err := yaml.Unmarshal(buf.Bytes(), &career)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -90,7 +82,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	out, err := os.Create("index.html")
+	out, err := os.Create("../../index.html")
 	if err != nil {
 		log.Fatal(err)
 	}
