@@ -26,5 +26,10 @@ func main() {
 
 	r := bytes.NewReader(data)
 
-	career.Generate(r)
+	c, err := career.Parse(r)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	career.Generate(c)
 }

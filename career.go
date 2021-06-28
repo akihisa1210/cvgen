@@ -2,7 +2,6 @@ package career
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -30,17 +29,20 @@ type Career struct {
 	Companies []Company
 }
 
-func Generate(r io.Reader) {
+func Parse(r io.Reader) (Career, error) {
 	career := Career{}
 	buf := new(bytes.Buffer)
 	buf.ReadFrom(r)
 
 	err := yaml.Unmarshal(buf.Bytes(), &career)
 	if err != nil {
-		log.Fatal(err)
+		return career, err
 	}
-	fmt.Printf("%#v\n", career)
 
+	return career, nil
+}
+
+func Generate(c Career) {
 	tmpl, err := template.New("test").Parse(`<!DOCTYPE html>
 	<html>
 	<body>
@@ -88,7 +90,7 @@ func Generate(r io.Reader) {
 	}
 	defer out.Close()
 
-	err = tmpl.Execute(io.MultiWriter(out, os.Stdout), career)
+	err = tmpl.Execute(io.MultiWriter(out, os.Stdout), c)
 	if err != nil {
 		log.Fatal(err)
 	}
