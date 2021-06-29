@@ -36,3 +36,30 @@ func TestParse(t *testing.T) {
 		t.Fatalf("Parse error: %v", err)
 	}
 }
+
+func TestGenerator(t *testing.T) {
+	c := Career{
+		Companies: []Company{
+			{
+				"company name",
+				"summary",
+				[]Project{
+					{
+						"period",
+						"role",
+						"technology",
+						[]Activity{
+							"activity1",
+							"activity2",
+						},
+					},
+				},
+			},
+		},
+	}
+
+	_, err := Generate(c)
+	if err != nil {
+		t.Fatalf("Generate error: %v", err)
+	}
+}

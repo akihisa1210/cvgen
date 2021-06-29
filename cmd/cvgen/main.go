@@ -31,5 +31,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	career.Generate(c)
+	html, err := career.Generate(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	out, err := os.Create("../../index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer out.Close()
+	out.Write([]byte(html))
 }

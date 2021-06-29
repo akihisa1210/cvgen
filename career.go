@@ -4,8 +4,6 @@ package career
 import (
 	"bytes"
 	"io"
-	"log"
-	"os"
 	"text/template"
 
 	"gopkg.in/yaml.v2"
@@ -43,7 +41,7 @@ func Parse(r io.Reader) (Career, error) {
 	return career, nil
 }
 
-func Generate(c Career) {
+func Generate(c Career) (string, error) {
 	tmpl, err := template.New("test").Parse(`<!DOCTYPE html>
 	<html>
 	<body>
@@ -52,47 +50,44 @@ func Generate(c Career) {
 			</thead>
 			<tbody>
 				{{ range .Companies }}
-					<tr>
-						<td colspan="4">社名: {{ .Name }}</td>
-					</tr>
-					<tr>
-						<td colspan="4">{{ .Summary }}</td>
-					</tr>
-					{{ range .Projects }}
-						<tr>
-							<td rowspan="3" >{{ .Period }}</td>
-							<td>役割: {{ .Role }}</td>
-						</tr>
-						<tr>
-							<td>使用技術: {{ .Technology }}</td>
-						</tr>
-						<tr>
-							<td>
-								<ul>
-								{{ range .Activities }}
-									<li>{{ . }}</li>
-								{{ end }}
-								</ul>
-							</td>
-						</tr>
-					{{ end }}
+				<tr>
+					<td colspan="4">社名: {{ .Name }}</td>
+				</tr>
+				<tr>
+					<td colspan="4">{{ .Summary }}</td>
+				</tr>
+				{{ range .Projects }}
+				<tr>
+					<td rowspan="3" >{{ .Period }}</td>
+					<td>役割: {{ .Role }}</td>
+				</tr>
+				<tr>
+					<td>使用技術: {{ .Technology }}</td>
+				</tr>
+				<tr>
+					<td>
+						<ul>
+						{{ range .Activities }}
+							<li>{{ . }}</li>
+						{{ end }}
+						</ul>
+					</td>
+				</tr>
+				{{ end }}
 				{{ end }}
 			</tbody>
 		</table>
 	</body>
 	</html>`)
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 
-	out, err := os.Create("../../index.html")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer out.Close()
+	buf := new(bytes.Buffer)
 
-	err = tmpl.Execute(io.MultiWriter(out, os.Stdout), c)
+	err = tmpl.Execute(buf, c)
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
+	return buf.String(), nil
 }
