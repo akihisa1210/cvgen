@@ -1,3 +1,4 @@
+// Package career provides the parser and generator of curriculum vitae.
 package career
 
 import (
