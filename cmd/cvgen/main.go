@@ -23,6 +23,7 @@ func main() {
 				Aliases:     []string{"i"},
 				Usage:       "input from `FILE`",
 				Destination: &input,
+				Required:    true,
 			},
 		},
 		Action: func(c *cli.Context) error {
