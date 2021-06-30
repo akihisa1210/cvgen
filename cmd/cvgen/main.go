@@ -29,13 +29,13 @@ func main() {
 		Action: func(c *cli.Context) error {
 			f, err := os.Open(input)
 			if err != nil {
-				log.Fatal(err)
+				return cli.Exit(err, 1)
 			}
 			defer f.Close()
 
 			data, err := ioutil.ReadAll(f)
 			if err != nil {
-				log.Fatal(err)
+				return cli.Exit(err, 1)
 			}
 
 			fmt.Println(string(data)) // debug
@@ -44,19 +44,19 @@ func main() {
 
 			cr, err := career.Parse(r)
 			if err != nil {
-				log.Fatal(err)
+				return cli.Exit(err, 1)
 			}
 
 			html, err := career.Generate(cr)
 			if err != nil {
-				log.Fatal(err)
+				return cli.Exit(err, 1)
 			}
 
 			fmt.Println(html) // debug
 
 			out, err := os.Create("../../index.html")
 			if err != nil {
-				log.Fatal(err)
+				return cli.Exit(err, 1)
 			}
 			defer out.Close()
 			out.Write([]byte(html))
