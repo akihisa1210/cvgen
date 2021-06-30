@@ -11,7 +11,12 @@ import (
 )
 
 func main() {
-	f, err := os.Open("../../career.yml")
+	if len(os.Args) != 2 {
+		fmt.Fprintln(os.Stderr, "Usage: cvgen <career.yml>")
+		os.Exit(1)
+	}
+
+	f, err := os.Open(os.Args[1])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -22,7 +27,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(data))
+	fmt.Println(string(data)) // debug
 
 	r := bytes.NewReader(data)
 
@@ -35,6 +40,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println(html) // debug
 
 	out, err := os.Create("../../index.html")
 	if err != nil {
