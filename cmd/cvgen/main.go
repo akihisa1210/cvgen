@@ -14,9 +14,16 @@ import (
 func main() {
 	var input string
 
+	cli.VersionFlag = &cli.BoolFlag{
+		Name:    "version",
+		Aliases: []string{"v"},
+		Usage:   "print only the version",
+	}
+
 	app := &cli.App{
-		Name:  "cvgen",
-		Usage: "generate curriculum vitae",
+		Name:    "cvgen",
+		Version: "v0.0.1",
+		Usage:   "generate curriculum vitae",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "input",
