@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -49,14 +47,7 @@ func main() {
 			}
 			defer f.Close()
 
-			data, err := ioutil.ReadAll(f)
-			if err != nil {
-				return cli.Exit(err, 1)
-			}
-
-			r := bytes.NewReader(data)
-
-			cr, err := career.Parse(r)
+			cr, err := career.Parse(f)
 			if err != nil {
 				return cli.Exit(err, 1)
 			}
