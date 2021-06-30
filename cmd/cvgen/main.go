@@ -12,7 +12,10 @@ import (
 )
 
 func main() {
-	var input string
+	var (
+		input  string
+		output string
+	)
 
 	cli.VersionFlag = &cli.BoolFlag{
 		Name:    "version",
@@ -32,6 +35,12 @@ func main() {
 				Destination: &input,
 				Required:    true,
 			},
+			&cli.StringFlag{
+				Name:        "output",
+				Aliases:     []string{"o"},
+				Usage:       "output to `FILE`",
+				Destination: &output,
+			},
 		},
 		Action: func(c *cli.Context) error {
 			f, err := os.Open(input)
@@ -45,8 +54,6 @@ func main() {
 				return cli.Exit(err, 1)
 			}
 
-			fmt.Println(string(data)) // debug
-
 			r := bytes.NewReader(data)
 
 			cr, err := career.Parse(r)
@@ -59,9 +66,12 @@ func main() {
 				return cli.Exit(err, 1)
 			}
 
-			fmt.Println(html) // debug
+			if output == "" {
+				fmt.Println(html)
+				return nil
+			}
 
-			out, err := os.Create("../../index.html")
+			out, err := os.Create(output)
 			if err != nil {
 				return cli.Exit(err, 1)
 			}
