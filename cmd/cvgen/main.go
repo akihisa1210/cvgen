@@ -27,11 +27,6 @@ func main() {
 				Usage:    "input from `FILE`",
 				Required: true,
 			},
-			&cli.StringFlag{
-				Name:    "output",
-				Aliases: []string{"o"},
-				Usage:   "output to `FILE`",
-			},
 			&cli.BoolFlag{
 				Name:    "markdown",
 				Aliases: []string{"m"},
@@ -61,17 +56,7 @@ func main() {
 				return cli.Exit(err, 1)
 			}
 
-			if c.String("output") == "" {
-				fmt.Println(op)
-				return nil
-			}
-
-			out, err := os.Create(c.String("output"))
-			if err != nil {
-				return cli.Exit(err, 1)
-			}
-			defer out.Close()
-			out.Write([]byte(op))
+			fmt.Println(op)
 
 			return nil
 		},
