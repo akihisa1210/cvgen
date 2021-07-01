@@ -91,3 +91,32 @@ func HTMLGenerate(c Career) (string, error) {
 	}
 	return buf.String(), nil
 }
+
+func MarkDownGenerate(c Career) (string, error) {
+	tmpl, err := template.New("test").Parse(`
+# 職務経歴書{{ range .Companies }}
+
+## {{ .Name }}
+
+{{ .Summary }}{{ range .Projects }}
+
+### {{ .Period }}
+
+役割: {{ .Role }}
+
+使用技術: {{ .Technology }}
+{{ range .Activities }}
+- {{ . }}{{ end }}{{ end }}{{ end }}
+`)
+	if err != nil {
+		return "", err
+	}
+
+	buf := new(bytes.Buffer)
+
+	err = tmpl.Execute(buf, c)
+	if err != nil {
+		return "", err
+	}
+	return buf.String(), nil
+}

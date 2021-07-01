@@ -39,6 +39,11 @@ func main() {
 				Usage:       "output to `FILE`",
 				Destination: &output,
 			},
+			&cli.BoolFlag{
+				Name:    "markdown",
+				Aliases: []string{"m"},
+				Usage:   "output as markdown",
+			},
 		},
 		Action: func(c *cli.Context) error {
 			f, err := os.Open(input)
@@ -50,6 +55,27 @@ func main() {
 			cr, err := career.Parse(f)
 			if err != nil {
 				return cli.Exit(err, 1)
+			}
+
+			if c.Bool("markdown") {
+				md, err := career.MarkDownGenerate(cr)
+				if err != nil {
+					return cli.Exit(err, 1)
+				}
+
+				if output == "" {
+					fmt.Println(md)
+					return nil
+				}
+
+				out, err := os.Create(output)
+				if err != nil {
+					return cli.Exit(err, 1)
+				}
+				defer out.Close()
+				out.Write([]byte(md))
+
+				return nil
 			}
 
 			html, err := career.HTMLGenerate(cr)

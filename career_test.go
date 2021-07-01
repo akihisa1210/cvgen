@@ -63,3 +63,30 @@ func TestHTMLGenerator(t *testing.T) {
 		t.Fatalf("Generate error: %v", err)
 	}
 }
+
+func TestMarkDownGenerator(t *testing.T) {
+	c := Career{
+		Companies: []Company{
+			{
+				"company name",
+				"summary",
+				[]Project{
+					{
+						"period",
+						"role",
+						"technology",
+						[]Activity{
+							"activity1",
+							"activity2",
+						},
+					},
+				},
+			},
+		},
+	}
+
+	_, err := MarkDownGenerate(c)
+	if err != nil {
+		t.Fatalf("Generate error: %v", err)
+	}
+}
