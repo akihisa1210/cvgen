@@ -52,7 +52,7 @@ func main() {
 				return cli.Exit(err, 1)
 			}
 
-			html, err := career.Generate(cr)
+			html, err := career.HTMLGenerate(cr)
 			if err != nil {
 				return cli.Exit(err, 1)
 			}

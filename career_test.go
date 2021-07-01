@@ -37,7 +37,7 @@ func TestParse(t *testing.T) {
 	}
 }
 
-func TestGenerator(t *testing.T) {
+func TestHTMLGenerator(t *testing.T) {
 	c := Career{
 		Companies: []Company{
 			{
@@ -58,7 +58,7 @@ func TestGenerator(t *testing.T) {
 		},
 	}
 
-	_, err := Generate(c)
+	_, err := HTMLGenerate(c)
 	if err != nil {
 		t.Fatalf("Generate error: %v", err)
 	}

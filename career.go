@@ -41,7 +41,7 @@ func Parse(r io.Reader) (Career, error) {
 	return career, nil
 }
 
-func Generate(c Career) (string, error) {
+func HTMLGenerate(c Career) (string, error) {
 	tmpl, err := template.New("test").Parse(`<!DOCTYPE html>
 	<html>
 	<body>
