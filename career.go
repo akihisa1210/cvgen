@@ -44,8 +44,21 @@ func Parse(r io.Reader) (Career, error) {
 func HTMLGenerate(c Career) (string, error) {
 	tmpl, err := template.New("test").Parse(`<!DOCTYPE html>
 	<html>
+	<head>
+		<style>
+			table {
+				border-collapse: collapse;
+			}
+
+			th, td {
+				border: solid 1px;
+				text-align: left;
+				vertical-align: top;
+			}
+		</style>
+	</head>
 	<body>
-		<table border="1">
+		<table>
 			<thead>
 			</thead>
 			<tbody>
