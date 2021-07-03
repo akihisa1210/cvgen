@@ -21,12 +21,6 @@ func main() {
 		Version: "v0.0.1",
 		Usage:   "generate curriculum vitae",
 		Flags: []cli.Flag{
-			&cli.StringFlag{
-				Name:     "input",
-				Aliases:  []string{"i"},
-				Usage:    "input from `FILE`",
-				Required: true,
-			},
 			&cli.BoolFlag{
 				Name:    "markdown",
 				Aliases: []string{"m"},
@@ -34,7 +28,12 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
-			f, err := os.Open(c.String("input"))
+			filename := c.Args().First()
+			if filename == "" {
+				cli.ShowAppHelp(c)
+			}
+
+			f, err := os.Open(filename)
 			if err != nil {
 				return cli.Exit(err, 1)
 			}
