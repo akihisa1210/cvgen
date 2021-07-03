@@ -1,6 +1,6 @@
-# career
+# cvgen
 
-職務経歴書
+職務経歴書ジェネレーター
 
 ## Usage
 
@@ -13,22 +13,22 @@ companies:
   - name: A
     summary: 〇〇をやった
     projects:
-      - period: 2021 年 05 月〜2021 年 06 月
+      - period: 2021年05月〜2021年06月
         role: リーダー
         technology: Go, TypeScript
         activities:
           - 実装をした
           - テストをした
-      - period: 2021 年 05 月〜2021 年 06 月
+      - period: 2021年04月〜2021年05月
         role: リーダー
-        technology: Go, TypeScript
+        technology: C++
         activities:
           - 実装をした
           - テストをした
   - name: B
-    summary: xx をやった
+    summary: xxをやった
     projects:
-      - period: 2021 年 04 月〜2021 年 05 月
+      - period: 2021年03月〜2021年04月
         role: メンバー
         technology: PHP, MySQL
         activities:
@@ -38,13 +38,24 @@ companies:
 ### Generate HTML
 
 ```sh
-$ cvgen -i career.yml
-
+$ cvgen career.yml
 <!DOCTYPE html>
-
         <html>
+        <head>
+                <style>
+                        table {
+                                border-collapse: collapse;
+                        }
+
+                        th, td {
+                                border: solid 1px;
+                                text-align: left;
+                                vertical-align: top;
+                        }
+                </style>
+        </head>
         <body>
-                <table border="1">
+                <table>
                         <thead>
                         </thead>
                         <tbody>
@@ -76,11 +87,11 @@ $ cvgen -i career.yml
                                 </tr>
 
                                 <tr>
-                                        <td rowspan="3" >2021年05月〜2021年06月</td>
+                                        <td rowspan="3" >2021年04月〜2021年05月</td>
                                         <td>役割: リーダー</td>
                                 </tr>
                                 <tr>
-                                        <td>使用技術: Go, TypeScript</td>
+                                        <td>使用技術: C++</td>
                                 </tr>
                                 <tr>
                                         <td>
@@ -103,7 +114,7 @@ $ cvgen -i career.yml
                                 </tr>
 
                                 <tr>
-                                        <td rowspan="3" >2021年04月〜2021年05月</td>
+                                        <td rowspan="3" >2021年03月〜2021年04月</td>
                                         <td>役割: メンバー</td>
                                 </tr>
                                 <tr>
@@ -126,10 +137,10 @@ $ cvgen -i career.yml
         </html>
 ```
 
-### Generate markdown file
+### Generate markdown
 
 ```sh
-$ cvgen -i career.yml -m
+$ cvgen -m career.yml
 
 # 職務経歴書
 
@@ -146,11 +157,11 @@ $ cvgen -i career.yml -m
 - 実装をした
 - テストをした
 
-### 2021年05月〜2021年06月
+### 2021年04月〜2021年05月
 
 役割: リーダー
 
-使用技術: Go, TypeScript
+使用技術: C++
 
 - 実装をした
 - テストをした
@@ -159,7 +170,7 @@ $ cvgen -i career.yml -m
 
 xxをやった
 
-### 2021年04月〜2021年05月
+### 2021年03月〜2021年04月
 
 役割: メンバー
 

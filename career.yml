@@ -8,16 +8,16 @@ companies:
         activities:
           - 実装をした
           - テストをした
-      - period: 2021年05月〜2021年06月
+      - period: 2021年04月〜2021年05月
         role: リーダー
-        technology: Go, TypeScript
+        technology: C++
         activities:
           - 実装をした
           - テストをした
   - name: B
     summary: xxをやった
     projects:
-      - period: 2021年04月〜2021年05月
+      - period: 2021年03月〜2021年04月
         role: メンバー
         technology: PHP, MySQL
         activities:
